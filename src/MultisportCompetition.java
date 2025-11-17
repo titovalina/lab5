@@ -4,7 +4,6 @@ import java.util.stream.Collectors;
 
 public class MultisportCompetition {
 
-    // Класс участника
     public static class Participant {
         private String lastName;
         private String firstName;
@@ -26,11 +25,9 @@ public class MultisportCompetition {
         }
     }
 
-    // Основной метод
     public static void showTopParticipants(String filename) {
         List<Participant> participants = new ArrayList<>();
 
-        // ======= ЧТЕНИЕ ФАЙЛА =======
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
 
             String line;
@@ -40,7 +37,6 @@ public class MultisportCompetition {
 
                 String[] parts = line.trim().split("\\s+");
 
-                // Формат должен быть: Фамилия Имя Ч1 Ч2 Ч3 Ч4 → 6 элементов
                 if (parts.length != 6) {
                     System.out.println("Неверный формат строки: " + line);
                     continue;
@@ -72,7 +68,6 @@ public class MultisportCompetition {
             return;
         }
 
-        // ======= СОРТИРОВКА =======
         participants.sort((a, b) -> Integer.compare(b.getTotalScore(), a.getTotalScore()));
 
         // Находим TOP-3, учитываем одинаковые баллы
@@ -83,7 +78,6 @@ public class MultisportCompetition {
                 .filter(p -> p.getTotalScore() >= thresholdScore)
                 .collect(Collectors.toList());
 
-        // ======= ВЫВОД =======
         System.out.println("\n=== Лучшие участники многоборья ===");
         winners.forEach(System.out::println); // выводим всех
     }
