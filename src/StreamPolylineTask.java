@@ -6,13 +6,10 @@ public class StreamPolylineTask {
     public static Polyline createPolyline(List<Point> points) {
 
         List<Point> cleaned = points.stream()
-                // заменить отрицательные Y на положительные
                 .map(p -> new Point(p.getX(), Math.abs(p.getY())))
 
-                // убрать дубликаты по X,Y
                 .distinct()
 
-                // сортировка по X
                 .sorted(Comparator.comparing(Point::getX))
 
                 .collect(Collectors.toList());
