@@ -15,22 +15,17 @@ public class StreamNamesTask {
 
         return lines.stream()
 
-                // пропустить строки без ":"
                 .filter(s -> s.contains(":"))
 
-                // разбить на имя и число
                 .map(s -> s.split(":"))
 
-                // пропустить без номера
                 .filter(parts -> parts.length == 2 && parts[1].matches("\\d+"))
 
-                // форматировать имя
                 .map(parts -> new AbstractMap.SimpleEntry<>(
                         Integer.parseInt(parts[1]),
                         formatName(parts[0])
                 ))
 
-                // сгруппировать
                 .collect(Collectors.groupingBy(
                         AbstractMap.SimpleEntry::getKey,
                         Collectors.mapping(AbstractMap.SimpleEntry::getValue, Collectors.toList())
